@@ -1,17 +1,66 @@
-import { getStringInfo, toUpperCase } from "../src/app/Utils";
+import { getStringInfo, StringUtils, toUpperCase } from '../src/app/Utils';
 
-describe('Utils test suite', ()=>{
-    it('should reuturn uppercase of a valid string', ()=>{
+describe('Utils test suite', () => {
 
-        //arrange:
+    describe('StringUtils tests', ()=>{
+
+        let sut: StringUtils;
+
+        beforeEach(()=>{
+            sut = new StringUtils();
+        })
+
+        it('Should return correct upperCase', ()=>{
+            const actual = sut.toUpperCase('abc');
+            expect(actual).toBe('ABC');
+        })
+
+        it('Should throw error on invalid argument - function', ()=>{
+            function expectError() {
+                const actual = sut.toUpperCase();
+
+                return actual 
+                // if(actual.length == 0 ){
+                //     throw Error('invalid arg')
+                // }
+            }            
+            expect(expectError).toThrow('Invalid argument!');
+        })
+
+        it('Should throw error on invalid argument - arrow function', ()=>{      
+            expect(()=>{
+                sut.toUpperCase('');
+            }).toThrow('Invalid argument!');
+        })
+
+        it('Should throw error on invalid argument - try catch block', (done)=>{             
+            try {
+                sut.toUpperCase('');
+                done('GetStringInfo should throw error for invalid arg!')
+            } catch (error) {
+                expect(error).toBeInstanceOf(Error);
+                expect(error).toHaveProperty('message', 'Invalid argument!');
+                done();
+            }
+
+        })
+
+    });
+
+
+
+
+
+
+
+
+    it('should return uppercase of valid string', () => {
         const sut = toUpperCase;
         const expected = 'ABC'
 
-        // act:
         const actual = sut('abc');
 
-        // assert:
-        expect (actual).toBe(expected)
+        expect(actual).toBe(expected);
     })
 
     describe('ToUpperCase examples', ()=>{
@@ -25,8 +74,8 @@ describe('Utils test suite', ()=>{
         });
     })
 
-
     describe('getStringInfo for arg My-String should', ()=>{
+
         
         test('return right length', ()=>{
             const actual = getStringInfo('My-String');
@@ -52,21 +101,11 @@ describe('Utils test suite', ()=>{
             const actual = getStringInfo('My-String');
             expect(actual.extraInfo).toBeDefined();
         });
+
         test('return right extra info', ()=>{
             const actual = getStringInfo('My-String');
             expect(actual.extraInfo).toEqual({})
         });
 
-    it('should return info for valid string', ()=> {
-        const actual = getStringInfo('My-String');
-
-        expect(actual.extraInfo).toEqual({})
-
-        expect(actual.extraInfo).not.toBe(undefined);
-        expect(actual.extraInfo).not.toBeUndefined();
-        expect(actual.extraInfo).toBeDefined();
-        expect(actual.extraInfo).toBeTruthy();
     });
-});
-
 });

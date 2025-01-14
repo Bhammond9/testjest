@@ -1,12 +1,17 @@
 {
   "name": "testjest",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json src/**/*.ts",
+    "prepublish": "npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": {
+    "name": "C"
+  },
   "license": "ISC",
   "description": "",
   "devDependencies": {
@@ -14,9 +19,18 @@
     "jest": "^29.7.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.3"
   },
   "dependencies": {
-    "lru-cache": "^11.0.2"
-  }
+    "lru-cache": "^11.0.2",
+    "tslint": "^5.20.1"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "files": [
+    "./bin/*",
+    "./lib/*"
+  ],
+  "typings": "./lib/index.d.ts"
 }
